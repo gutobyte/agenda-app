@@ -7,6 +7,7 @@ TypeScript 4.3.5
 NodeJs v12.22.6
 
 Frontend -> Cadastro de contatos (nome, email) e opção de adicionar foto do contato.
+</br>
 Backend -> https://github.com/gutobyte/agenda-api
 
 ## Rodar
