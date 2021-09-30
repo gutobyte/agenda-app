@@ -1,5 +1,6 @@
+import { PaginaContato } from './contato/paginaContato';
 import { Contato } from './contato/contato';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -22,11 +23,16 @@ export class ContatoService {
     return this.http.post<Contato>(this.url, contato);
   }
 
-  list() : Observable<Contato[]>{
-    return this.http.get<any>(this.url);
+  list(page : any, size : any) : Observable<PaginaContato>{
+    const params = new HttpParams().set('page', page).set('size', size);
+    return this.http.get<any>(`${this.url}?${params.toString()}`);
   }
 
   favorite(contato : Contato) : Observable<any>{
     return this.http.patch(`${this.url}/${contato.id}/favorito`, null);
+  }
+
+  upload(contato : Contato, formData : FormData) : Observable<any>{
+    return this.http.put(`${this.url}/${contato.id}/foto`, formData, { responseType : 'blob'});
   }
 }
